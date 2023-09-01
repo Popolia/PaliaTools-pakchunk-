@@ -1,4 +1,4 @@
-# PaliaTools
+# PaliaTools (pakchunkTools)
 pakchunkTools
 
 Warning or ps : make sure you put the 2 files in "download".![Capture d’écran 2023-09-01 220317](https://github.com/Popolia/PaliaTools/assets/69745473/8e069440-67bb-477d-827e-0b8348af1019)
