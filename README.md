@@ -8,3 +8,5 @@ people usually have pakchunk problems, so I made a .bat that activates a .ps1 th
 ![image](https://github.com/Popolia/PaliaTools/assets/69745473/4ded0e26-cffb-43d6-b150-da775eba12e0)
 ![imasssssge](https://github.com/Popolia/PaliaTools/assets/69745473/0e754bfe-ac8d-4cfb-a794-a7274742774b)
 ![imagddde](https://github.com/Popolia/PaliaTools/assets/69745473/0699f5cb-bec9-444a-9fa5-be218fe4b25a)
+
+De base le chemin du fichier pars defaut c'est : C:\Users\Admin\AppData\Local\Palia\Client\Palia\Content\Paks![Capture d’écran 2023-09-02 011134](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/7939ed09-074a-4afc-8553-dbc8bb19478a)
