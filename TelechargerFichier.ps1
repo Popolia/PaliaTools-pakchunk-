@@ -1,3 +1,12 @@
+# URL du manifest
+$manifestUrl = "https://update.palia.com/manifest/PatchManifest.json"
+
+# Téléchargez le contenu du manifest depuis l'URL
+$manifest = Invoke-RestMethod -Uri $manifestUrl
+
+# Obtenez la dernière version du manifest
+$latestVersion = ($manifest.PSObject.Properties.Name | Sort-Object -Descending | Select-Object -First 1)
+
 # Demandez à l'utilisateur de saisir le nom du fichier "pakchunk" (Ask the user to enter the name of the "pakchunk" file)
 $selectedPakchunkName = Read-Host "Enter the name of the pakchunk file you wish to download : "
 
@@ -7,18 +16,24 @@ $scriptFolder = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Defin
 # Combinez le dossier du script avec le nom du fichier en utilisant l'encodage UTF-8 (Combine the script folder with the file name using UTF-8 encoding)
 $outputFilePath = Join-Path -Path $scriptFolder -ChildPath ([System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Default.GetBytes($selectedPakchunkName)))
 
-# Construisez l'URL basée sur le nom de fichier (Build the URL based on the file name)
-$url = "https://update.palia.com/val/v01651/$selectedPakchunkName"
+# Récupérez l'URL du fichier à partir du manifest
+$fileInfo = $manifest.$latestVersion.Files | Where-Object { $_.URL -like "*$selectedPakchunkName" }
 
-# Téléchargez le fichier choisi (Download the selected file)
-Invoke-WebRequest -Uri $url -OutFile $outputFilePath
+if ($fileInfo -eq $null) {
+    Write-Host "The file '$selectedPakchunkName' was not found in version '$latestVersion' of the manifest."
+} else {
+    $url = $fileInfo.URL
 
-# Écrivez un message dans un fichier texte dans le dossier du script (Write a message in a text file in the script folder)
-$message = "The file '$selectedPakchunkName' has been successfully downloaded at : $outputFilePath"
-$message | Out-File -FilePath "$scriptFolder\download_message.txt" -Encoding UTF8
+    # Téléchargez le fichier choisi (Download the selected file)
+    Invoke-WebRequest -Uri $url -OutFile $outputFilePath
 
-# Affichez un message de confirmation dans la console (Display a confirmation message in the console)
-Write-Host "The file '$selectedPakchunkName' has been successfully downloaded. Please refer to the download_message.txt file in the script folder for more information."
+    # Écrivez un message dans un fichier texte dans le dossier du script (Write a message in a text file in the script folder)
+    $message = "The file '$selectedPakchunkName' from version '$latestVersion' has been successfully downloaded at : $outputFilePath"
+    $message | Out-File -FilePath "$scriptFolder\download_message.txt" -Encoding UTF8
+
+    # Affichez un message de confirmation dans la console (Display a confirmation message in the console)
+    Write-Host "The file '$selectedPakchunkName' from version '$latestVersion' has been successfully downloaded. Please refer to the download_message.txt file in the script folder for more information."
+}
 
 # Demandez à l'utilisateur s'il souhaite continuer (Ask the user if they wish to continue)
 $continue = Read-Host "Would you like to continue ? (O/N)"
