@@ -11,4 +11,6 @@ ps: download the .ps1 , right-click on the file .ps1 is executed with PowerShell
 
 ![Capture d’écran 2023-09-03 024029](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/ce89d1d5-f168-47be-a4e5-81417fdacfe5)
 
-The basic default file path is : C:\Users\Admin\AppData\Local\Palia\Client\Palia\Content\Paks![Capture d’écran 2023-09-02 011134](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/7939ed09-074a-4afc-8553-dbc8bb19478a)
+The basic default file path is : C:\Users\Admin\AppData\Local\Palia\Client\Palia\Content\Paks
+
+![Capture d’écran 2023-09-02 011134](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/7939ed09-074a-4afc-8553-dbc8bb19478a)
