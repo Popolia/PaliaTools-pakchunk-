@@ -1,19 +1,17 @@
 # PaliaTools (pakchunkTools)
 pakchunkTools
 
-ps: download the .ps1 , right-click on the file .ps1 is executed with PowerShell
+ps1: I've kept the .bat just in case, but normally you won't need to use it.  ^_^
 
-ps2: I've kept the .bat just in case, but normally you won't need to use it.  ^_^
+ps2 : .exe on ,  just run it as an .exe
 
-ps3 : .exe on ,  just run it as an .exe
-
-ps4 : File Integrity Verification:
+ps3 : File Integrity Verification:
 
 If you have a hash value (e.g., MD5, SHA-1, or SHA-256) of the original file, you can recalculate the hash of the current file and compare it to the original hash. If the hashes do not match, the file is corrupted.
 
 So, what I've done is created a manifest using this method and compared it with the reference manifest. All you need to do is compare the values between the two manifests. Currently, I haven't been able to automate this process.
 
-ps5 : https://github.com/Lyaaaaaaaaaaaaaaa/Logs_Filter_2/tree/v1.2.0 
+ps4 : https://github.com/Lyaaaaaaaaaaaaaaa/Logs_Filter_2/tree/v1.2.0 
 
 Functionalities
 
