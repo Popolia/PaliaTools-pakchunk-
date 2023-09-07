@@ -7,6 +7,12 @@ ps2: I've kept the .bat just in case, but normally you won't need to use it.  ^_
 
 ps3 : .exe on ,  just run it as an .exe
 
+ps4 : File Integrity Verification:
+
+If you have a hash value (e.g., MD5, SHA-1, or SHA-256) of the original file, you can recalculate the hash of the current file and compare it to the original hash. If the hashes do not match, the file is corrupted.
+
+So, what I've done is created a manifest using this method and compared it with the reference manifest. All you need to do is compare the values between the two manifests. Currently, I haven't been able to automate this process.
+
 ![Capture d’écran 2023-09-03 023648](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/dee4372f-8093-45ff-a492-6b2dc7c8de24)
 
 ![Capture d’écran 2023-09-03 023543](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/520c0313-7f54-402f-a246-fbeda5a4c1ba)
