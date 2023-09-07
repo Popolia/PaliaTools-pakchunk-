@@ -1,4 +1,6 @@
-Write-Host "Please wait while the manifests are created ^_^"
+# Message d'attente avec un sourire
+Write-Host "Please wait while the manifests are being created ^_^"
+
 # Obtenir le nom d'utilisateur actuel
 $nomUtilisateur = $env:USERNAME
 
@@ -35,8 +37,8 @@ $manifesteSHA256 | Export-Csv -Path $cheminDuManifesteSHA256 -NoTypeInformation
 # Afficher un message indiquant que le manifeste SHA-256 a été créé avec succès
 Write-Host "Manifeste des hachages SHA-256 créé avec succès et enregistré dans : $cheminDuManifesteSHA256"
 
-# Spécifiez le chemin d'accès où vous souhaitez enregistrer le manifeste de référence
-$cheminManifesteDeReference = "C:\Users\Admin\Downloads\manifeste_de_reference.txt"
+# Spécifier le chemin du fichier où vous souhaitez enregistrer le manifeste de référence avec le nom d'utilisateur actuel
+$cheminManifesteDeReference = "C:\Users\$nomUtilisateur\Downloads\manifeste_de_reference.txt"
 
 # Créez un manifeste de référence en tant qu'URL
 $manifesteDeReferenceURL = "https://update.palia.com/manifest/PatchManifest.json"
