@@ -13,6 +13,28 @@ If you have a hash value (e.g., MD5, SHA-1, or SHA-256) of the original file, yo
 
 So, what I've done is created a manifest using this method and compared it with the reference manifest. All you need to do is compare the values between the two manifests. Currently, I haven't been able to automate this process.
 
+ps5 : https://github.com/Lyaaaaaaaaaaaaaaa/Logs_Filter_2/tree/v1.2.0 
+
+Functionalities
+
+Efficiently search through logs - ctrl+f isn't efficient for big files
+
+Start by casting a wide net - By setting to off you can fetch all the lines where at least one filter appears.Search for all filters
+
+Sharpen your search - By setting to on you can fetch the lines where all your filters appear.Search for all filters
+
+Disable/Enable case sensitivity
+
+See in real time the statistics of your search - The number of lines searched and the number of lines matching your filters are displayed in the top right-hand corner of the application.
+
+Copy to the clipboard - In one click you can copy the whole output into your clipboard.
+
+Saved preferences - You can change the size, style or color of the font and more.
+
+Drag and drop - Don't waste time! Drag your log file directly into the software.
+
+
+
 ![Capture d’écran 2023-09-03 023648](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/dee4372f-8093-45ff-a492-6b2dc7c8de24)
 
 ![Capture d’écran 2023-09-03 023543](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/520c0313-7f54-402f-a246-fbeda5a4c1ba)
