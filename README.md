@@ -1,6 +1,13 @@
 # PaliaTools (pakchunkTools)
 pakchunkTools
 
+pakchunkTools.EXE =  to download a pakchunk by typing, for example : pakchunk2-WindowsClient.pak  (pour avoir le pakchunk2)
+
+Palia_manifeste.EXE= create 2 manifests, one that creates a hash from the files you have and the other that takes the manifest from palia (where the vertion is marked, download url is the hash of each document)
+
+Logs_Filter_2.exe= allows you to filter the 2 manifests quickly and easily
+
+
 ps1: I've kept the .bat just in case, but normally you won't need to use it.  ^_^
 
 ps2 : .exe on ,  just run it as an .exe
