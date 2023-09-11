@@ -1,7 +1,7 @@
 # PaliaTools (pakchunkTools)
 pakchunkTools
 
-pakchunkTools.EXE =  to download a pakchunk by typing, for example : pakchunk2-WindowsClient.pak  (pour avoir le pakchunk2)
+pakchunkTools.EXE =  to download a pakchunk by typing, for example : pakchunk2-WindowsClient.pak   (to get the pakchunk2) or visit https://update.palia.com/manifest/PatchManifest.json  always latest version!
 
 Palia_manifeste.EXE= create 2 manifests, one that creates a hash from the files you have and the other that takes the manifest from palia (where the vertion is marked, download url is the hash of each document)
 
