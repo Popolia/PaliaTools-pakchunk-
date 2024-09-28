@@ -1,55 +1,99 @@
 # PaliaTools (pakchunkTools)
-pakchunkTools
 
-pakchunkTools.EXE =  to download a pakchunk by typing, for example : pakchunk2-WindowsClient.pak   (to get the pakchunk2) or visit https://update.palia.com/manifest/PatchManifest.json  always latest version!
+## Exécutables
 
-Palia_manifeste.EXE= create 2 manifests, one that creates a hash from the files you have and the other that takes the manifest from palia (where the vertion is marked, download url is the hash of each document)
+- **pakchunkTools.EXE** : Télécharge un pakchunk spécifique (ex. `pakchunk2-WindowsClient.pak`) depuis [Palia Manifest](https://update.palia.com/manifest/PatchManifest.json) pour la dernière version.
+  
+- **Palia_manifeste.EXE** : Crée deux manifests : un pour le hash des fichiers existants et un autre basé sur le manifest de Palia.
 
-Logs_Filter_2.exe= allows you to filter the 2 manifests quickly and easily
+- **Logs_Filter_2.exe** : Outil de filtrage pour analyser rapidement les manifests.
 
+### Remarques
 
-ps1: I've kept the .bat just in case, but normally you won't need to use it.  ^_^
+- Le fichier `.bat` est conservé pour les cas d'utilisation, mais n'est généralement pas nécessaire.
+- Pour la **Vérification de l'intégrité des fichiers**, comparez les valeurs de hash (MD5, SHA-1, SHA-256) des fichiers originaux avec ceux actuels.
 
-ps2 : .exe on ,  just run it as an .exe
+## Fonctionnalités de Logs_Filter_2
 
-ps3 : File Integrity Verification:
+- Recherche efficace dans les journaux, plus rapide que `ctrl+f`.
+- Filtrage basé sur une ou plusieurs conditions.
+- Sensibilité à la casse : option pour activer/désactiver.
+- Statistiques en temps réel : nombre de lignes recherchées et correspondant aux filtres.
+- Copier les résultats dans le presse-papiers d'un clic.
+- Préférences sauvegardées pour la taille, le style et la couleur de la police.
+- Glisser-déposer pour charger les fichiers journaux facilement.
 
-If you have a hash value (e.g., MD5, SHA-1, or SHA-256) of the original file, you can recalculate the hash of the current file and compare it to the original hash. If the hashes do not match, the file is corrupted.
+## Chemin de fichier par défaut
 
-So, what I've done is created a manifest using this method and compared it with the reference manifest. All you need to do is compare the values between the two manifests. Currently, I haven't been able to automate this process.
+- `C:\Users\Admin\AppData\Local\Palia\Client\Palia\Content\Paks`
+- Accès à AppData : `Windows + R` puis `%localappdata%`.
 
-ps4 : https://github.com/Lyaaaaaaaaaaaaaaa/Logs_Filter_2/tree/v1.2.0 
+## Script PowerShell pour Télécharger un Pakchunk
 
-Functionalities
+### Description
 
-Efficiently search through logs - ctrl+f isn't efficient for big files
+Ce script télécharge un fichier pakchunk à partir du manifest de Palia.
 
-Start by casting a wide net - By setting to off you can fetch all the lines where at least one filter appears.Search for all filters
+### Code du Script
 
-Sharpen your search - By setting to on you can fetch the lines where all your filters appear.Search for all filters
+```powershell
+# URL du manifest
+$manifestUrl = "https://update.palia.com/manifest/PatchManifest.json"
 
-Disable/Enable case sensitivity
+# Téléchargez le contenu du manifest depuis l'URL
+try {
+    $manifest = Invoke-RestMethod -Uri $manifestUrl
+} catch {
+    Write-Host "Erreur lors du téléchargement du manifest : $_"
+    exit
+}
 
-See in real time the statistics of your search - The number of lines searched and the number of lines matching your filters are displayed in the top right-hand corner of the application.
+# Obtenez la dernière version du manifest
+$latestVersion = ($manifest.PSObject.Properties.Name | Sort-Object -Descending | Select-Object -First 1)
 
-Copy to the clipboard - In one click you can copy the whole output into your clipboard.
+# Demandez à l'utilisateur de saisir le nom du fichier "pakchunk"
+$selectedPakchunkName = Read-Host "Enter the name of the pakchunk file you wish to download : "
 
-Saved preferences - You can change the size, style or color of the font and more.
+if (-not $selectedPakchunkName) {
+    Write-Host "Le nom du fichier ne peut pas être vide."
+    exit
+}
 
-Drag and drop - Don't waste time! Drag your log file directly into the software.
+# Obtenez le chemin du dossier du script
+$scriptFolder = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 
+# Combinez le dossier du script avec le nom du fichier
+$outputFilePath = Join-Path -Path $scriptFolder -ChildPath ([System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Default.GetBytes($selectedPakchunkName)))
 
+# Récupérez l'URL du fichier à partir du manifest
+$fileInfo = $manifest.$latestVersion.Files | Where-Object { $_.URL -like "*$selectedPakchunkName" }
 
-![Capture d’écran 2023-09-03 023648](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/dee4372f-8093-45ff-a492-6b2dc7c8de24)
+if ($fileInfo -eq $null) {
+    Write-Host "Le fichier '$selectedPakchunkName' n'a pas été trouvé dans la version '$latestVersion' du manifest."
+} else {
+    $url = $fileInfo.URL
 
-![Capture d’écran 2023-09-03 023543](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/520c0313-7f54-402f-a246-fbeda5a4c1ba)
+    # Téléchargez le fichier choisi
+    try {
+        Invoke-WebRequest -Uri $url -OutFile $outputFilePath
+    } catch {
+        Write-Host "Erreur lors du téléchargement du fichier : $_"
+        exit
+    }
 
-![Capture d’écran 2023-09-03 023954](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/4992a1f5-05a2-4c8f-826f-7ff006e1b003)
+    # Écrivez un message dans un fichier texte dans le dossier du script
+    $message = "The file '$selectedPakchunkName' from version '$latestVersion' has been successfully downloaded at : $outputFilePath"
+    $message | Out-File -FilePath "$scriptFolder\download_message.txt" -Encoding UTF8
 
-![Capture d’écran 2023-09-03 024029](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/ce89d1d5-f168-47be-a4e5-81417fdacfe5)
+    # Affichez un message de confirmation dans la console
+    Write-Host "Le fichier '$selectedPakchunkName' de la version '$latestVersion' a été téléchargé avec succès. Veuillez consulter le fichier download_message.txt dans le dossier du script pour plus d'informations."
+}
 
-The basic default file path is : C:\Users\Admin\AppData\Local\Palia\Client\Palia\Content\Paks
+# Demandez à l'utilisateur s'il souhaite continuer
+$continue = Read-Host "Would you like to continue ? (O/N)"
 
-to remind  , to go to the AppData => Window + R => %localappdata%
-
-![Capture d’écran 2023-09-02 011134](https://github.com/Popolia/PaliaTools-pakchunk-/assets/69745473/7939ed09-074a-4afc-8553-dbc8bb19478a)
+if ($continue -eq "O" -or $continue -eq "o") {
+    Write-Host "Continuation..."
+} else {
+    Read-Host "Press Enter to exit..."
+}
